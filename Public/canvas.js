@@ -5,6 +5,7 @@ let eraserWidthElem = document.querySelector(".eraser-width");
 let download = document.querySelector(".download");
 let undo = document.querySelector(".undo");
 let redo = document.querySelector(".redo");
+let eraser = document.querySelector(".eraser");
 
 let undoRedoTracker = []; // data
 let track = 0; // represents which actions done from tracker array
@@ -77,7 +78,7 @@ undo.addEventListener("click", (e) => {
         undoRedoTracker
     }
     //  undoRedoCanvas(trackObj);
-    socket.emit("redoUndo", data);
+    socket.emit("undoRedo", data);
 })
 
 redo.addEventListener("click", (e) => {
@@ -90,7 +91,7 @@ redo.addEventListener("click", (e) => {
         undoRedoTracker
     }
     // undoRedoCanvas(trackObj);
-    socket.emit("redoUndo", data);
+    socket.emit("undoRedo", data);
 })
 
 function undoRedoCanvas(trackObj) {
@@ -155,20 +156,17 @@ download.addEventListener("click", (e) => {
     a.click();
 })
 
+// Sockets listening
 socket.on("beginPath", (data) => {
-    // data from server
     beginPath(data);
 })
 socket.on("drawStroke", (data) => {
-    // data from server
     drawStroke(data);
 })
-socket.on("redoUndo", (data) => {
-    // data from server
+socket.on("undoRedo", (data) => {
+    console.log("Listening");
     undoRedoCanvas(data);
 })
-
-
 
 
 
