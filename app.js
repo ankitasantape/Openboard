@@ -1,6 +1,12 @@
 const express = require("express");
 const socket = require("socket.io");
+const cors = require("cors");
 const app = express();
+
+// app.use(cors({origin: "http://localhost:3000"}))
+// app.get("/data", (req, res) => {
+//     res.json({ fname: "Ankita", lname: "Santape" })
+// })
 
 app.use(express.static("public"));
 
